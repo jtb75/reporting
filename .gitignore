@@ -23,5 +23,9 @@ Thumbs.db
 .env
 *.env
 
+# Credentials
+harbor-credentials.txt
+*-credentials.txt
+
 # Logs
 *.log

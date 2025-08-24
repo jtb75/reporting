@@ -24,11 +24,22 @@ jobs:
         username: ${{ secrets.HARBOR_USERNAME }}
         password: ${{ secrets.HARBOR_PASSWORD }}
     
-    - name: Build and push Docker image
+    - name: Build and push Wiz Proxy image
       uses: docker/build-push-action@v4
       with:
         context: .
+        file: ./Dockerfile
         push: true
         tags: |
           ${{ env.HARBOR_REGISTRY }}/${{ env.HARBOR_PROJECT }}/wiz-graphql-proxy:latest
           ${{ env.HARBOR_REGISTRY }}/${{ env.HARBOR_PROJECT }}/wiz-graphql-proxy:${{ github.sha }}
+    
+    - name: Build and push Sync image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: ./Dockerfile.sync
+        push: true
+        tags: |
+          ${{ env.HARBOR_REGISTRY }}/${{ env.HARBOR_PROJECT }}/wiz-sync:latest
+          ${{ env.HARBOR_REGISTRY }}/${{ env.HARBOR_PROJECT }}/wiz-sync:${{ github.sha }}
